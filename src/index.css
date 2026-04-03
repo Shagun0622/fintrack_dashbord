@@ -500,25 +500,214 @@ input, select { font-family: var(--fb); }
 .cat-pct { width:28px; text-align:right; flex-shrink:0; font-size:0.65rem; color:var(--t3); }
 
 /* ── RESPONSIVE ── */
-@media (max-width:1024px) { .charts-row { grid-template-columns:1fr; } .ins-grid { grid-template-columns:1fr; } }
+@media (max-width:1024px) {
+  .charts-row { grid-template-columns:1fr; }
+  .ins-grid { grid-template-columns:repeat(2,1fr); }
+}
+
 @media (max-width:768px) {
-  :root { --fw:0px; }
+  :root { --fw:0px; --th:56px; }
   .sidebar { transform:translateX(-248px); width:248px; }
   .sidebar.open { transform:translateX(0); }
   .sidebar-overlay.open { display:block; }
   .main-area { margin-left:0; }
-  .topbar { left:0; padding:0 15px; }
+  .topbar { left:0; padding:0 14px; }
   .menu-btn { display:flex; }
-  .page-content { padding:15px 15px 32px; padding-top:calc(var(--th) + 15px); }
-  .sum-grid { grid-template-columns:1fr; gap:10px; }
-  .filters-wrap { gap:7px; }
-  .srch-wrap { min-width:100%; }
-  .tbl th:nth-child(3),.tbl td:nth-child(3) { display:none; }
-  .tbl th:nth-child(5),.tbl td:nth-child(5) { display:none; }
-}
-@media (max-width:480px) { .fg-2 { grid-template-columns:1fr; } .page-heading { font-size:1.3rem; } }
+  .page-content { padding:14px 14px 40px; padding-top:calc(var(--th) + 14px); }
 
-/* ── SIDEBAR PROFILE ── */
+  /* Summary cards: 2-col on tablet */
+  .sum-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+  .sum-grid .sum-card:first-child { grid-column:1/-1; }
+
+  /* Charts stack */
+  .charts-row { grid-template-columns:1fr; gap:10px; }
+
+  /* Insights 2-col on tablet */
+  .ins-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+
+  /* Filters: wrap sensibly */
+  .filters-wrap { gap:7px; }
+  .srch-wrap { min-width:100%; order:-1; }
+  .f-sel { flex:1; min-width:calc(50% - 4px); }
+  .clear-btn, .export-btn { flex:1; }
+
+  /* Table: hide less important columns */
+  .tbl th:nth-child(3),.tbl td:nth-child(3) { display:none; }
+  .tbl th:nth-child(4),.tbl td:nth-child(4) { display:none; }
+
+  /* Transactions page header: stack on small */
+  .txn-page-header { flex-direction:column; gap:12px; align-items:flex-start !important; }
+  .txn-page-header .txn-header-actions { width:100%; display:flex; gap:8px; }
+  .txn-page-header .txn-header-actions button { flex:1; justify-content:center; }
+
+  /* Insights category label wider */
+  .cat-nm { width:80px; }
+
+  /* Page heading */
+  .page-heading { font-size:1.4rem; }
+
+  /* Modal: full-width on mobile with bottom sheet style */
+  .modal-overlay { align-items:flex-end; padding:0; }
+  .modal {
+    border-radius:20px 20px 0 0;
+    max-width:100%;
+    padding:20px 18px 28px;
+    animation: slideUp 0.28s var(--ease);
+  }
+}
+
+@keyframes slideUp {
+  from { opacity:0; transform:translateY(60px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+@media (max-width:540px) {
+  /* Summary: single column on very small */
+  .sum-grid { grid-template-columns:1fr; }
+  .sum-grid .sum-card:first-child { grid-column:auto; }
+  .sum-val { font-size:1.35rem; }
+
+  /* Insights: single column */
+  .ins-grid { grid-template-columns:1fr; }
+
+  /* Page content */
+  .page-content { padding:12px 12px 40px; padding-top:calc(var(--th) + 12px); }
+  .page-heading { font-size:1.25rem; }
+  .page-sub { font-size:0.8rem; }
+
+  /* Topbar */
+  .topbar-title { font-size:0.9rem; }
+  .topbar-sub { font-size:0.65rem; }
+  .role-pill { display:none; }
+
+  /* Filter selects stack */
+  .f-sel { min-width:100%; }
+
+  /* Table: minimal columns */
+  .tbl th:nth-child(3),.tbl td:nth-child(3),
+  .tbl th:nth-child(4),.tbl td:nth-child(4) { display:none; }
+  .tbl td { padding:10px 12px; font-size:0.8rem; }
+  .tbl th { padding:8px 12px; }
+
+  /* Chart cards */
+  .chart-card { padding:16px; }
+  .chart-hd { flex-direction:column; gap:8px; }
+  .chart-leg { flex-wrap:wrap; gap:8px; }
+
+  /* Section card */
+  .section-hd { padding:12px 14px; }
+
+  /* Insights cards */
+  .ins-card { padding:16px; }
+  .ins-val { font-size:1.1rem; }
+
+  /* Monthly breakdown */
+  .monthly-card { padding:16px; }
+  .cat-card { padding:16px; }
+  .cmp-amt, .cat-amt { font-size:0.65rem; width:58px; }
+  .cat-nm { width:70px; font-size:0.7rem; }
+  .cat-pct { width:24px; font-size:0.62rem; }
+
+  /* Filter summary chips */
+  .filter-sum { gap:8px; flex-direction:column; }
+
+  /* Modal */
+  .modal { padding:18px 16px 24px; }
+  .fg-2 { grid-template-columns:1fr; }
+}
+
+@media (max-width:360px) {
+  .page-content { padding:10px 10px 36px; padding-top:calc(var(--th) + 10px); }
+  .sum-card { padding:16px; }
+  .sum-val { font-size:1.2rem; }
+  .topbar { padding:0 10px; }
+}
+
+/* ── TRANSACTION MOBILE CARDS ── */
+.txn-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.txn-card {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--bd);
+  transition: background var(--ts);
+}
+.txn-card:last-child { border-bottom: none; }
+.txn-card:hover { background: var(--bg-card-2); }
+.txn-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 7px;
+}
+.txn-card-desc {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--t1);
+  line-height: 1.3;
+}
+.txn-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.txn-card-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px solid var(--bd);
+}
+.txn-card-actions .act-btn { flex: 1; justify-content: center; }
+
+/* ── MOBILE BOTTOM NAV ── */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 60px;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--bd);
+  z-index: 150;
+  padding: 0 8px;
+  align-items: center;
+  justify-content: space-around;
+  backdrop-filter: blur(12px);
+}
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 16px;
+  border-radius: 12px;
+  background: none;
+  border: none;
+  color: var(--t3);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: all var(--ts);
+  text-decoration: none;
+  font-family: var(--fb);
+  cursor: pointer;
+  min-width: 64px;
+}
+.mobile-nav-item.active { color: var(--accent); }
+.mobile-nav-item:hover { color: var(--t1); }
+
+@media (max-width:768px) {
+  .mobile-bottom-nav { display: flex; }
+  /* Push page content above bottom nav */
+  .page-content { padding-bottom: calc(60px + 24px) !important; }
+}
+
+/* ── SIDEBAR PROFILE ─— */*/
 .sidebar-profile {
   display: flex;
   align-items: center;
