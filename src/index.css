@@ -302,15 +302,27 @@ input, select { font-family: var(--fb); }
 /* ── TXN PAGE HEADER ── */
 .txn-page-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;          /* vertically centre text + buttons */
   justify-content: space-between;
   margin-bottom: 20px;
   gap: 12px;
+  flex-wrap: nowrap;            /* stay on one row on desktop */
 }
+
+/* ── TXN HEADER ACTIONS (desktop) ── */
+/* Buttons sit naturally sized — no stretching */
 .txn-header-actions {
   display: flex;
+  align-items: center;
   gap: 8px;
-  flex-shrink: 0;
+  flex-shrink: 0;               /* never shrink on desktop */
+}
+
+/* Buttons inside the header are always auto-width on desktop */
+.txn-header-actions .export-btn,
+.txn-header-actions .add-btn {
+  flex: 0 0 auto;               /* KEY FIX: don't grow, don't shrink */
+  width: auto;
 }
 
 /* ── SUMMARY CARDS ── */
@@ -481,14 +493,18 @@ input, select { font-family: var(--fb); }
 .clear-btn:hover { border-color:var(--expense-bd); color:var(--expense); background:var(--expense-s); }
 
 .export-btn {
-  padding:8px 12px; border-radius:10px; border:1px solid var(--bd);
-  background:var(--bg-card); color:var(--t2); font-size:0.75rem; font-weight:600;
+  display: inline-flex;
+  align-items: center;
+  padding:8px 14px; border-radius:10px; border:1px solid var(--bd);
+  background:var(--bg-card); color:var(--t2); font-size:0.84rem; font-weight:600;
   transition:all var(--ts); white-space:nowrap; min-height:40px;
 }
 .export-btn:hover { border-color:var(--bd2); color:var(--t1); }
 
 .add-btn {
-  display:flex; align-items:center; gap:5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   padding:8px 14px; border-radius:10px;
   border:1px solid var(--accent-bd); background:var(--accent-soft); color:var(--accent);
   font-size:0.84rem; font-weight:700; transition:all var(--ts); white-space:nowrap; min-height:40px;
@@ -753,9 +769,9 @@ input, select { font-family: var(--fb); }
   box-shadow:var(--accent-glow);
 }
 
-/* ─────────────────────────────────────────────
+/* ==============================================
    RESPONSIVE BREAKPOINTS
-   ───────────────────────────────────────────── */
+   ============================================== */
 
 /* ── TABLET (≤ 1024px) ── */
 @media (max-width: 1024px) {
@@ -809,18 +825,35 @@ input, select { font-family: var(--fb); }
   }
   .f-sel      { flex:1; min-width:calc(50% - 4px); }
   .clear-btn  { flex:1; min-width:calc(50% - 4px); }
-  .export-btn { flex:1; min-width:calc(50% - 4px); }
-  .add-btn    { width:100%; justify-content:center; order:10; }
 
-  /* ── TXN PAGE HEADER ── */
-  .txn-page-header {
-    flex-direction:column;
-    align-items:stretch;
+  /* Filters-row export btn: full width, last */
+  .filters-wrap .export-btn {
+    flex:1;
+    min-width:calc(50% - 4px);
+    justify-content:center;
   }
-  .txn-header-actions { width:100%; }
-  .txn-header-actions button,
-  .txn-header-actions .add-btn,
-  .txn-header-actions .export-btn { flex:1; justify-content:center; }
+
+  /* ── TXN PAGE HEADER on mobile ── */
+  .txn-page-header {
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: nowrap;
+  }
+  .txn-header-actions {
+    display: flex;          /* ensure flex is on */
+    flex-direction: row;    /* buttons side by side */
+    width: 100%;
+    flex-shrink: 0;
+    gap: 8px;
+  }
+  /* Both header buttons expand equally to fill the row */
+  .txn-header-actions .export-btn,
+  .txn-header-actions .add-btn {
+    flex: 1 1 0 !important;   /* override the desktop flex:0 0 auto */
+    width: auto !important;
+    justify-content: center;
+    min-width: 0;
+  }
 
   /* ── MODAL → BOTTOM SHEET ── */
   .modal-overlay {

@@ -36,18 +36,26 @@ export default function Transactions({ onMenuClick }) {
     <>
       <Topbar title="Transactions" subtitle={`${filtered.length} records`} onMenuClick={onMenuClick} />
       <div className="page-content">
-        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:20 }}>
+
+        {/* PAGE HEADER */}
+        <div className="txn-page-header">
           <div>
             <h2 className="page-heading">Transactions</h2>
             <p className="page-sub" style={{ marginBottom:0 }}>Track and manage all your financial activity.</p>
           </div>
-          <div style={{ display:'flex', gap:8, flexShrink:0, paddingTop:4 }}>
+
+          {/* No inline styles — CSS handles all sizing & responsiveness */}
+          <div className="txn-header-actions">
             <button className="export-btn" onClick={exportCSV}>
-              <Download size={14} strokeWidth={2} style={{ marginRight: 5 }} />CSV
+              <Download size={14} strokeWidth={2} style={{ marginRight:5 }} />CSV
             </button>
+
             {role === 'admin' && (
-              <button className="add-btn" onClick={() => { setEditTarget(null); setShowModal(true); }}>
-                <Plus size={15} strokeWidth={2.2} style={{ marginRight: 4 }} />Add
+              <button
+                className="add-btn"
+                onClick={() => { setEditTarget(null); setShowModal(true); }}
+              >
+                <Plus size={15} strokeWidth={2.2} style={{ marginRight:4 }} />Add
               </button>
             )}
           </div>
@@ -74,7 +82,7 @@ export default function Transactions({ onMenuClick }) {
           </select>
           {hasFilters && (
             <button className="clear-btn" onClick={clearFilters}>
-              <X size={13} strokeWidth={2.5} style={{ marginRight: 4 }} />Clear
+              <X size={13} strokeWidth={2.5} style={{ marginRight:4 }} />Clear
             </button>
           )}
         </div>

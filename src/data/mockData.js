@@ -77,4 +77,6 @@ export const initialTransactions = [
   { id: 55, date: '2025-12-25', description: 'Electricity Bill',            amount: 1950,  category: 'Utilities',     type: 'expense' },
   { id: 56, date: '2025-12-28', description: 'Spotify + YouTube Premium',   amount: 259,   category: 'Subscriptions', type: 'expense' },
   { id: 57, date: '2025-12-30', description: 'New Year Eve Party',          amount: 3500,  category: 'Entertainment', type: 'expense' },
+
+  
 ];
