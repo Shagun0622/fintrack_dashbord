@@ -42,7 +42,7 @@ finance-dashboard/
 │   ├── context/
 │   │   └── AppContext.jsx       # Global state via useReducer + Context
 │   ├── data/
-│   │   └── mockData.js          # 28 realistic mock transactions (INR)
+│   │   └── mockData.js          # 50 realistic mock transactions (INR)
 │   ├── utils/
 │   │   └── helpers.js           # Formatting, filtering, sorting, aggregation
 │   ├── components/
