@@ -1,5 +1,5 @@
 /* ============================================
-   FINTRACK — REDESIGNED DESIGN SYSTEM
+  
    Fonts: Bricolage Grotesque + DM Sans + JetBrains Mono
    Theme: Light / Dark with CSS variable swap
    ============================================ */
@@ -590,7 +590,7 @@ input, select { font-family: var(--fb); }
 .skeleton-card .sk-v  { height: 28px; width: 65%; margin-bottom: 8px; }
 .skeleton-card .sk-s  { height: 9px;  width: 80%; }
 
-/* ── INS-ICO updated (colored via inline style, border added) ── */
+/* ── INS-ICO (colored via inline style, border added) ── */
 .ins-ico {
   width: 40px; height: 40px;
   border-radius: 12px;
