@@ -66,9 +66,8 @@ export const initialTransactions = [
   { id: 45, date: '2026-01-25', description: 'Internet Bill — JioFiber',    amount: 999,   category: 'Utilities',     type: 'expense' },
   { id: 46, date: '2026-01-28', description: 'Movie — IMAX',                amount: 850,   category: 'Entertainment', type: 'expense' },
   { id: 47, date: '2026-01-30', description: 'Freelance — Dashboard Design',amount: 11000, category: 'Freelance',     type: 'income'  },
-
-  // ─── December 2025 ──────────────────────────────────────────
-  { id: 48, date: '2025-12-01', description: 'Monthly Salary',              amount: 85000, category: 'Salary',        type: 'income'  },
+  
+    { id: 48, date: '2025-12-01', description: 'Monthly Salary',              amount: 85000, category: 'Salary',        type: 'income'  },
   { id: 49, date: '2025-12-05', description: 'Grocery Store',               amount: 3100,  category: 'Food',          type: 'expense' },
   { id: 50, date: '2025-12-10', description: 'Freelance — Year-End Project',amount: 25000, category: 'Freelance',     type: 'income'  },
   { id: 51, date: '2025-12-15', description: 'Christmas Shopping',          amount: 8500,  category: 'Shopping',      type: 'expense' },
