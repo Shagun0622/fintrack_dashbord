@@ -134,16 +134,24 @@ input, select { font-family: var(--fb); }
 }
 
 /* ── TOPBAR ── */
+/* UPDATED: semi-transparent + blur so it floats over scrolling content */
 .topbar {
   position:fixed; top:0; left:var(--fw); right:0;
   height:var(--th);
   display:flex; align-items:center; justify-content:space-between;
   padding:0 26px;
-  background: var(--bg-card);
+  background: rgba(24, 28, 46, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--bd);
   z-index:100;
   transition: left var(--ts), background 0.3s, border-color 0.3s;
 }
+
+[data-theme="light"] .topbar {
+  background: rgba(255, 255, 255, 0.75);
+}
+
 .topbar-title { font-family:var(--fd); font-size:1rem; font-weight:700; color:var(--t1); letter-spacing:-0.02em; }
 .topbar-sub   { font-size:0.72rem; color:var(--t2); margin-top:1px; }
 .topbar-right { display:flex; align-items:center; gap:8px; }
@@ -210,15 +218,24 @@ input, select { font-family: var(--fb); }
   color:var(--t3); padding:8px 10px 3px; margin-top:4px;
 }
 
+/* UPDATED: left-border accent on active instead of full background fill */
 .nav-link {
   display:flex; align-items:center; gap:9px;
   padding:9px 10px; border-radius:10px;
   color:var(--t2); font-size:0.855rem; font-weight:500;
   transition:all var(--ts); border:1px solid transparent;
+  border-left: 2px solid transparent;
   min-height:40px;
+  position: relative;
 }
 .nav-link:hover { background:var(--bg-el); color:var(--t1); }
-.nav-link.active { background:var(--accent-soft); color:var(--accent); border-color:var(--accent-bd); font-weight:600; }
+.nav-link.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: transparent;
+  border-left-color: var(--accent);
+  font-weight:600;
+}
 
 .nav-ico {
   width:27px; height:27px; border-radius:8px;
@@ -302,50 +319,50 @@ input, select { font-family: var(--fb); }
 /* ── TXN PAGE HEADER ── */
 .txn-page-header {
   display: flex;
-  align-items: center;          /* vertically centre text + buttons */
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
   gap: 12px;
-  flex-wrap: nowrap;            /* stay on one row on desktop */
+  flex-wrap: nowrap;
 }
 
 /* ── TXN HEADER ACTIONS (desktop) ── */
-/* Buttons sit naturally sized — no stretching */
 .txn-header-actions {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-shrink: 0;               /* never shrink on desktop */
+  flex-shrink: 0;
 }
 
-/* Buttons inside the header are always auto-width on desktop */
 .txn-header-actions .export-btn,
 .txn-header-actions .add-btn {
-  flex: 0 0 auto;               /* KEY FIX: don't grow, don't shrink */
+  flex: 0 0 auto;
   width: auto;
 }
 
-/* ── SUMMARY CARDS ── */
+/* ── SUMMARY CARDS — COMPACT ── */
 .sum-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; margin-bottom:18px; }
 
 .sum-card {
   background:var(--bg-card); border:1px solid var(--bd);
-  border-radius:16px; padding:20px 22px;
+  border-radius:14px; padding:14px 16px;       /* was 20px 22px */
   transition:all var(--ts); animation:fadeUp 0.4s var(--ease) both;
   position:relative; overflow:hidden;
 }
 .sum-card::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:3px; border-radius:16px 16px 0 0;
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:2px;                                   /* was 3px */
+  border-radius:14px 14px 0 0;
 }
 .sum-card.balance::before { background:var(--accent); }
 .sum-card.income::before  { background:var(--income); }
 .sum-card.expense::before { background:var(--expense); }
 .sum-card:hover { transform:translateY(-2px); box-shadow:var(--sh-md); border-color:var(--bd2); }
 
-.sum-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:13px; }
+.sum-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; } /* was 13px */
 .sum-icon {
-  width:38px; height:38px; border-radius:11px;
-  display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0;
+  width:28px; height:28px; border-radius:8px;  /* was 38px / 11px */
+  display:flex; align-items:center; justify-content:center; font-size:0.82rem; flex-shrink:0;
 }
 .sum-icon.balance { background:var(--accent-soft); color:var(--accent); }
 .sum-icon.income  { background:var(--income-s);    color:var(--income); }
@@ -355,19 +372,19 @@ input, select { font-family: var(--fb); }
 .sum-badge.up   { background:var(--income-s);  color:var(--income); }
 .sum-badge.down { background:var(--expense-s); color:var(--expense); }
 
-.sum-lbl { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--t2); margin-bottom:5px; }
+.sum-lbl { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--t2); margin-bottom:3px; } /* was 0.08em / 5px */
 .sum-val {
-  font-family:var(--fm); font-size:1.55rem; font-weight:700;
+  font-family:var(--fm); font-size:1.25rem; font-weight:700; /* was 1.55rem */
   letter-spacing:-0.02em; line-height:1.1; color:var(--t1);
 }
 .sum-val.balance { color:var(--accent); }
 .sum-val.income  { color:var(--income); }
 .sum-val.expense { color:var(--expense); }
-.sum-hint { font-size:0.72rem; color:var(--t3); margin-top:6px; }
+.sum-hint { font-size:0.68rem; color:var(--t2); margin-top:3px; } /* was color:t3 / margin 6px */
 
 /* ── SPARKLINES ── */
 .sum-spark {
-  margin-top: 10px;
+  margin-top: 8px; /* was 10px */
   opacity: 0.7;
 }
 
@@ -379,6 +396,11 @@ input, select { font-family: var(--fb); }
   border-radius:16px; padding:20px 22px;
   animation:fadeUp 0.45s var(--ease) 0.08s both;
   transition:background 0.3s, border-color 0.3s;
+}
+/* UPDATED: subtle bg shift on chart card hover for depth */
+.chart-card:hover {
+  background: var(--bg-card-2);
+  border-color: var(--bd2);
 }
 .chart-hd { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:16px; }
 .chart-title { font-family:var(--fd); font-size:0.88rem; font-weight:700; color:var(--t1); letter-spacing:-0.01em; }
@@ -408,11 +430,11 @@ input, select { font-family: var(--fb); }
 .view-all { font-size:0.72rem; color:var(--accent); font-weight:600; background:none; border:none; opacity:0.8; transition:opacity var(--ts); }
 .view-all:hover { opacity:1; }
 
-/* ── TABLE ── */
+/* ── TABLE — ROOMIER ROWS ── */
 .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; display:block; }
 .tbl { width:100%; border-collapse:collapse; }
 .tbl th {
-  padding:8px 18px;
+  padding:8px 20px;                             /* was 8px 18px */
   text-align:left; font-size:0.65rem; font-weight:700;
   letter-spacing:0.09em; text-transform:uppercase;
   color:var(--t3); background:var(--bg-card-2);
@@ -423,7 +445,7 @@ input, select { font-family: var(--fb); }
 .tbl tr.tbl-row { border-bottom:1px solid var(--bd); transition:background var(--ts); }
 .tbl tr.tbl-row:last-child { border-bottom:none; }
 .tbl tr.tbl-row:hover { background:var(--bg-card-2); }
-.tbl td { padding:12px 18px; font-size:0.84rem; color:var(--t2); white-space:nowrap; }
+.tbl td { padding:14px 20px; font-size:0.84rem; color:var(--t2); white-space:nowrap; } /* was 12px 18px */
 .td-desc { color:var(--t1); font-weight:500; }
 .td-date { font-size:0.75rem; }
 
@@ -629,7 +651,6 @@ input, select { font-family: var(--fb); }
 .cat-pct { width:28px; text-align:right; flex-shrink:0; font-size:0.65rem; color:var(--t3); }
 
 /* ── TRANSACTION MOBILE CARDS ── */
-/* Desktop: hide cards, show table */
 .txn-cards { display:none; }
 
 .txn-card {
@@ -783,41 +804,32 @@ input, select { font-family: var(--fb); }
 @media (max-width: 768px) {
   :root { --fw:0px; --th:56px; }
 
-  /* Sidebar off-canvas */
   .sidebar { transform:translateX(-248px); width:248px; }
   .sidebar.open { transform:translateX(0); }
   .sidebar-overlay.open { display:block; }
 
-  /* Layout */
   .main-area { margin-left:0; }
   .topbar { left:0; padding:0 14px; }
   .menu-btn { display:flex; }
 
-  /* Page content — respects safe area + bottom nav */
   .page-content {
     padding:14px 14px 0 14px !important;
     padding-top:calc(var(--th) + 14px) !important;
     padding-bottom:calc(60px + env(safe-area-inset-bottom, 0px) + 24px) !important;
   }
 
-  /* Bottom nav */
   .mobile-bottom-nav { display:flex; }
 
-  /* Summary: balance card full width */
   .sum-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
   .sum-grid .sum-card:first-child { grid-column:1 / -1; }
 
-  /* Charts stack */
   .charts-row { grid-template-columns:1fr; gap:10px; }
 
-  /* Insights 2-col */
   .ins-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
 
-  /* ── TRANSACTION TABLE → CARDS ── */
   .tbl-wrap  { display:none; }
   .txn-cards { display:flex; flex-direction:column; gap:1px; }
 
-  /* ── FILTERS ── */
   .filters-wrap { gap:8px; }
   .srch-wrap {
     min-width:100%;
@@ -826,36 +838,32 @@ input, select { font-family: var(--fb); }
   .f-sel      { flex:1; min-width:calc(50% - 4px); }
   .clear-btn  { flex:1; min-width:calc(50% - 4px); }
 
-  /* Filters-row export btn: full width, last */
   .filters-wrap .export-btn {
     flex:1;
     min-width:calc(50% - 4px);
     justify-content:center;
   }
 
-  /* ── TXN PAGE HEADER on mobile ── */
   .txn-page-header {
     flex-direction: column;
     align-items: stretch;
     flex-wrap: nowrap;
   }
   .txn-header-actions {
-    display: flex;          /* ensure flex is on */
-    flex-direction: row;    /* buttons side by side */
+    display: flex;
+    flex-direction: row;
     width: 100%;
     flex-shrink: 0;
     gap: 8px;
   }
-  /* Both header buttons expand equally to fill the row */
   .txn-header-actions .export-btn,
   .txn-header-actions .add-btn {
-    flex: 1 1 0 !important;   /* override the desktop flex:0 0 auto */
+    flex: 1 1 0 !important;
     width: auto !important;
     justify-content: center;
     min-width: 0;
   }
 
-  /* ── MODAL → BOTTOM SHEET ── */
   .modal-overlay {
     align-items:flex-end;
     padding:0;
@@ -870,7 +878,6 @@ input, select { font-family: var(--fb); }
     overflow-y:auto;
     -webkit-overflow-scrolling:touch;
   }
-  /* Drag handle */
   .modal::before {
     content:'';
     position:absolute;
@@ -881,86 +888,67 @@ input, select { font-family: var(--fb); }
     border-radius:99px;
   }
 
-  /* Insights category */
   .cat-nm { width:80px; }
-
-  /* Page heading */
   .page-heading { font-size:1.4rem; }
 }
 
 /* ── SMALL MOBILE (≤ 540px) ── */
 @media (max-width: 540px) {
-  /* Summary: single column */
   .sum-grid { grid-template-columns:1fr; }
   .sum-grid .sum-card:first-child { grid-column:auto; }
-  .sum-val { font-size:1.35rem; }
+  .sum-val { font-size:1.15rem; }
 
-  /* Insights: single column */
   .ins-grid { grid-template-columns:1fr; }
 
-  /* Page content */
   .page-content {
     padding:12px 12px 0 12px !important;
     padding-top:calc(var(--th) + 12px) !important;
     padding-bottom:calc(60px + env(safe-area-inset-bottom, 0px) + 20px) !important;
   }
 
-  /* Page heading */
   .page-heading { font-size:1.25rem; }
   .page-sub { font-size:0.8rem; }
 
-  /* Topbar */
   .topbar-title { font-size:0.9rem; }
   .topbar-sub   { font-size:0.65rem; }
   .role-pill    { display:none; }
 
-  /* Transaction cards tighter */
   .txn-card { padding:11px 13px; }
   .txn-card-desc   { font-size:0.84rem; }
   .txn-card-amount { font-size:0.9rem; }
 
-  /* iOS zoom prevention — must be ≥ 16px on inputs */
   .fg-input, .fg-sel,
   .srch-input, .f-sel { font-size:16px; }
 
-  /* Filters: full-width stack */
   .f-sel      { min-width:100%; }
   .clear-btn  { min-width:100%; }
   .export-btn { min-width:100%; }
 
-  /* Table fallback columns */
   .tbl th:nth-child(3), .tbl td:nth-child(3),
   .tbl th:nth-child(4), .tbl td:nth-child(4) { display:none; }
   .tbl td { padding:10px 12px; font-size:0.8rem; }
   .tbl th { padding:8px 12px; }
 
-  /* Chart cards */
   .chart-card { padding:16px; }
   .chart-hd { flex-direction:column; gap:8px; }
   .chart-leg { flex-wrap:wrap; gap:8px; }
 
-  /* Section */
   .section-hd { padding:12px 14px; }
 
-  /* Insights */
   .ins-card { padding:16px; }
   .ins-val  { font-size:1.1rem; }
 
-  /* Breakdown */
   .monthly-card { padding:16px; }
   .cat-card     { padding:16px; }
   .cmp-amt, .cat-amt { font-size:0.65rem; width:58px; }
   .cat-nm  { width:70px; font-size:0.7rem; }
   .cat-pct { width:24px; font-size:0.62rem; }
 
-  /* Filter summary */
   .filter-sum { gap:8px; flex-direction:column; }
 
-  /* Modal */
   .modal { padding:26px 16px calc(18px + env(safe-area-inset-bottom, 0px)); }
   .fg-2  { grid-template-columns:1fr; }
 
-  /* Bottom nav items */
   .mobile-nav-item { min-width:48px; padding:6px 8px; font-size:0.55rem; }
 }
 
@@ -971,17 +959,15 @@ input, select { font-family: var(--fb); }
     padding-top:calc(var(--th) + 10px) !important;
     padding-bottom:calc(60px + env(safe-area-inset-bottom, 0px) + 16px) !important;
   }
-  .sum-card { padding:16px; }
-  .sum-val  { font-size:1.2rem; }
+  .sum-card { padding:13px; }
+  .sum-val  { font-size:1.1rem; }
   .topbar   { padding:0 10px; }
 
-  /* Compact cards */
   .txn-card { padding:10px 12px; }
   .txn-card-desc   { font-size:0.8rem; }
   .txn-card-amount { font-size:0.85rem; }
   .cat-chip, .type-chip { font-size:0.62rem; padding:2px 6px; }
 
-  /* Modal */
   .modal-title { font-size:0.92rem; }
   .fg-input, .fg-sel { font-size:16px; padding:9px 10px; }
 }
