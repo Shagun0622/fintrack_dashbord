@@ -985,3 +985,35 @@ input, select { font-family: var(--fb); }
   .modal-title { font-size:0.92rem; }
   .fg-input, .fg-sel { font-size:16px; padding:9px 10px; }
 }
+/* ── COMPACT SUMMARY CARDS ── */
+.sum-card {
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+.sum-card::before {
+  height: 2px;
+  border-radius: 14px 14px 0 0;
+}
+.sum-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+}
+.sum-row {
+  margin-bottom: 8px;
+}
+.sum-lbl {
+  margin-bottom: 3px;
+}
+.sum-val {
+  font-size: 1.25rem;
+}
+.sum-hint {
+  font-size: 0.68rem;
+  color: var(--t2);   /* slightly lighter than --t3 so it's readable */
+  margin-top: 3px;
+}
+.sum-spark {
+  margin-top: 8px;
+}
