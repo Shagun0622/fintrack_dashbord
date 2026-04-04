@@ -3,6 +3,9 @@
 A clean, interactive personal finance dashboard built with **React**, **Recharts**, and **plain CSS**.
 
 ---
+## 🌐 Live Demo
+👉https://fintrackdashbord.vercel.app/
+
 
 ## 🚀 Getting Started
 
@@ -115,6 +118,16 @@ State is automatically saved to **`localStorage`** on every change, so data surv
 
 ---
 
+## ⚠️ Deployment Note
+
+If refreshing routes shows 404 on Vercel, add:
+```
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+```
 ## 🎨 Design Decisions
 
 - **Dark theme** with an electric teal (`#00e5cc`) accent — professional and readable
